@@ -1,5 +1,6 @@
-import numpy as np
+# import numpy as np
 import cv2
+
 
 def main():
     cap = cv2.VideoCapture('vid.MP4')
@@ -7,25 +8,25 @@ def main():
     cv2.namedWindow('gray', cv2.WINDOW_NORMAL)
     # cv2.namedWindow('thresh', cv2.WINDOW_NORMAL)
     # cv2.namedWindow('denoise', cv2.WINDOW_NORMAL)
-    i=0
+    # i = 0
     fourcc = cv2.VideoWriter_fourcc(*'MJPG')
-    out = cv2.VideoWriter('output.avi',fourcc, 20.0, (3840,2160))
+    out = cv2.VideoWriter('output.avi', fourcc, 20.0, (3840, 2160))
 
     # Define the codec and create VideoWriter object
     # fourcc = cv2.VideoWriter_fourcc(*'XVID')
     # out = cv2.VideoWriter('output.avi',fourcc, 20.0, (3840,2160))
     # ret, frame = cap.read()
-    while(cap.isOpened() ):
+    while(cap.isOpened()):
         ret, frame = cap.read()
         # i=i+1
         # print i
-        if ret==True:
+        if ret:
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             # ret,thresh1 = cv2.threshold(gray,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
             # thresh1 = cv2.adaptiveThreshold(gray,255,cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_BINARY,15,11)
             # dst = cv2.fastNlMeansDenoisingColored(frame,None,10,10,7,21)
-            cv2.imshow('frame',frame)
-            cv2.imshow('gray',gray)
+            cv2.imshow('frame', frame)
+            cv2.imshow('gray', gray)
             # cv2.imshow('thresh',thresh1)
             # cv2.imshow('denoise',dst)
             # cv2.imwrite('img.png',frame)
@@ -47,9 +48,7 @@ def main():
             # elif k == ord('s'): # wait for 's' key to save and exit
             #     cv2.imwrite('messigray.png',img)
             #     cv2.destroyAllWindows()
-        
 
-    
     cap.release()
     out.release()
     cv2.destroyAllWindows()

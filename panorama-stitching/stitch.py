@@ -52,7 +52,7 @@ stitcher = Stitcher()
 (result, vis) = stitcher.stitch([imageA, imageB], showMatches=True)
 
 # show the images
-cv2.imwrite('result.jpg',result)
+cv2.imwrite('result1.png',result)
 cv2.imwrite('keymat.jpg',vis)
 
 cv2.namedWindow('Keypoint Matches')

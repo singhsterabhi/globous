@@ -1,2 +1,5 @@
-images/s1.jpg
-images/s2.jpg
+images/frame22.jpg
+images/frame23.jpg
+images/frame24.jpg
+images/frame25.jpg
+images/frame27.jpg

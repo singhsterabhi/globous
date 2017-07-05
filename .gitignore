@@ -111,3 +111,6 @@
 /frames/*
 /lit/*
 /DDP_models-master/*
+
+#pyc files
+*.pyc

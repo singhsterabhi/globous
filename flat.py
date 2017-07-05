@@ -4,10 +4,11 @@ import time
 from cStringIO import StringIO
 import math
 
+
 def main():
-    im=cv2.imread('img1.png')
-    mat=cv2.imread('mat.jpg')
-    
+    im = cv2.imread('img1.png')
+    mat = cv2.imread('mat.jpg')
+
     print im.shape
     # print datetime.now().strftime('%Y_%m_%d')
     # h=im.shape[0]
@@ -22,17 +23,16 @@ def main():
     # cv2.circle(im,(w/2,h/2), h/2, (0,0,255), 2)
     # cv2.circle(im,(w/2,h/2), h/4, (255,0,255), 2)
     # cv2.circle(im,(w/2,h/2), 100, (0,255,0), 2)
-    
+
     print im[0][0]
-    new = np.zeros((3840,3840,3), np.uint8)
-    pad=(3840-2160)/2
-    new[pad:3840-pad,:]=im
-    h=new.shape[0]
-    w=new.shape[1]
+    new = np.zeros((3840, 3840, 3), np.uint8)
+    pad = (3840 - 2160) / 2
+    new[pad:3840 - pad, :] = im
+    h = new.shape[0]
+    w = new.shape[1]
     # cv2.circle(new,(w/2,w/2), w/2, (0,0,255), 2)
-    mat = np.zeros((h,int(3.14159265359*w/2),3), np.uint8)
-    print int(3.14159265359*w/2)
-    
+    mat = np.zeros((h, int(3.14159265359 * w / 2), 3), np.uint8)
+    print int(3.14159265359 * w / 2)
 
     # #############################
     # Circumference points method
@@ -46,7 +46,7 @@ def main():
     #     points = np.transpose(np.where(t==255))
     #     print len(points)
     #     k=int(3.14159265359*w/2)-(len(points))
-    #     print int(3.14159265359*w/2), '  ', len(points), '  ', k  
+    #     print int(3.14159265359*w/2), '  ', len(points), '  ', k
     #     s=0
     #     for p in points:
     #         # print p
@@ -56,13 +56,12 @@ def main():
     #             s=s+1
     #
     #
-    ###################################################3
-    
+    # 3
 
     ####################################################
     ####################################################
-    ### remapping method
-    # 
+    # remapping method
+    #
     #
     # for i in range(0,1):
     #     print i
@@ -71,24 +70,25 @@ def main():
     #     cv2.circle(t,(1920,1920),(1920-i) , 255, 1)
     #     points = np.transpose(np.where(t==255))
     #     print len(points)
-        # k=int(3.14159265359*w/2)-(len(points))
-        # print int(3.14159265359*w/2), '  ', len(points), '  ', k  
-        # cv2.remap(src, map1, map2, interpolation[, dst[, borderMode[, borderValue]]]) 
-        # cv2.remap(src, map1, map2, interpolation[, dst[, borderMode[, borderValue]]]) 
+    # k=int(3.14159265359*w/2)-(len(points))
+    # print int(3.14159265359*w/2), '  ', len(points), '  ', k
+    # cv2.remap(src, map1, map2, interpolation[, dst[, borderMode[, borderValue]]])
+    # cv2.remap(src, map1, map2, interpolation[, dst[, borderMode[,
+    # borderValue]]])
 
     #
-    # 
-    # 
-    # 
-    #     
+    #
+    #
+    #
+    #
     ###################################################
     ####################################################
-    
+
     ####################################################
-    ###polar method
+    # polar method
     # #
     # v1.0
-    # 
+    #
     # for r in range((w/2),1,-1):
     #     i=0
     #     for thetar in range(int(r*1.57079632679),-1,-1):
@@ -97,20 +97,22 @@ def main():
     #
     #
     #
-    #v2.0
-    # 
+    # v2.0
+    #
     print 'shape ', mat.shape
-    print ' w ',w
-    for r in range(int(w/2),1,-1):
-        i=0
+    print ' w ', w
+    for r in range(int(w / 2), 1, -1):
+        i = 0
         # print 'r ', r
-        
-        for thetar in range(int(r*1.57079632679),-1,-1):
-            # print 'theta ',thetar, ' i ', (r+int(w/2)), ' j ', (int(3.14159265359*w/2)-r+i)
-            print ' i ', (w-(int(w/2)-r)-1),' j ',(int(3.14159265359*w/4)+i-1),  ' val ' ,new[int((h/2)+r*math.sin(90-thetar/r))][int((w/2)+r*math.cos(90-thetar/r))]
-            mat[w-(int(w/2)-r)-1][int(3.14159265359*w/4)+i-1]=new[int((h/2)+r*math.sin(90-thetar/r))][int((w/2)+r*math.cos(90-thetar/r))]
-            i+=1
-    
+
+        for thetar in range(int(r * 1.57079632679), -1, -1):
+            # print 'theta ',thetar, ' i ', (r+int(w/2)), ' j ',
+            # (int(3.14159265359*w/2)-r+i)
+            print ' i ', (w - (int(w / 2) - r) - 1), ' j ', (int(3.14159265359 * w / 4) + i - 1), ' val ', new[int((h / 2) + r * math.sin(90 - thetar / r))][int((w / 2) + r * math.cos(90 - thetar / r))]
+            mat[w - (int(w / 2) - r) - 1][int(3.14159265359 * w / 4) + i - 1] = new[int((h / 2) +
+                                                                                        r * math.sin(90 - thetar / r))][int((w / 2) + r * math.cos(90 - thetar / r))]
+            i += 1
+
     #
     #
     ####################################################
@@ -132,14 +134,13 @@ def main():
     # fo = open("foo.txt", "wb")
     # fo.write(str(t));
     # fo.close();
-    cv2.namedWindow('image',cv2.WINDOW_NORMAL );
-    cv2.resizeWindow('image', 600,600)
-    name='out/flat/mat_'+time.strftime('%Y%m%d_%H%M')+'.jpg'
+    cv2.namedWindow('image', cv2.WINDOW_NORMAL)
+    cv2.resizeWindow('image', 600, 600)
+    name = 'out/flat/mat_' + time.strftime('%Y%m%d_%H%M') + '.jpg'
     # cv2.imwrite(name,mat)
-    cv2.imshow('image',mat)
+    cv2.imshow('image', mat)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
 if __name__ == '__main__':
     main()
-

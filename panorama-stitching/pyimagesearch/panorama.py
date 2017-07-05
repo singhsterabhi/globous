@@ -15,7 +15,8 @@ class Stitcher:
 		(imageB, imageA) = images
 		(kpsA, featuresA) = self.detectAndDescribe(imageA)
 		(kpsB, featuresB) = self.detectAndDescribe(imageB)
-
+		print 'featuresA ',featuresA
+		print 'featuresB ',featuresB
 		# match features between the two images
 		M = self.matchKeypoints(kpsA, kpsB,
 			featuresA, featuresB, ratio, reprojThresh)
@@ -76,7 +77,7 @@ class Stitcher:
 		ratio, reprojThresh):
 		# compute the raw matches and initialize the list of actual
 		# matches
-		matcher = cv2.DescriptorMatcher_create("BruteForce")
+		matcher = cv2.DescriptorMatcher_create("FlannBased")
 		rawMatches = matcher.knnMatch(featuresA, featuresB, 2)
 		matches = []
 
