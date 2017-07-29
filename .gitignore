@@ -111,6 +111,7 @@
 /frames/*
 /lit/*
 /DDP_models-master/*
+/gui/*
 
 #pyc files
 *.pyc

@@ -6,34 +6,14 @@ import math
 
 
 def main():
-    im = cv2.imread('img1.png')
-    mat = cv2.imread('mat.jpg')
 
-    print im.shape
-    # print datetime.now().strftime('%Y_%m_%d')
-    # h=im.shape[0]
-    # w=im.shape[1]
-    # print cv2.__version__
-    # print im[0:5,0:5]
-    # x=np.zeros(5,5)
-    # print x
-    # cv2.circle(im,(w/2,h/2), 5, (0,0,255), -1)
-    # cv2.circle(im,(w/2,0), 5, (0,0,255), -1)
-    # cv2.line(im,(w/2,0),(w/2,h/2),(0,0,255),2)
-    # cv2.circle(im,(w/2,h/2), h/2, (0,0,255), 2)
-    # cv2.circle(im,(w/2,h/2), h/4, (255,0,255), 2)
-    # cv2.circle(im,(w/2,h/2), 100, (0,255,0), 2)
+    mat = np.zeros((5000, 5000, 3), np.uint8)
 
-    print im[0][0]
-    new = np.zeros((3840, 3840, 3), np.uint8)
-    pad = (3840 - 2160) / 2
-    new[pad:3840 - pad, :] = im
-    h = new.shape[0]
-    w = new.shape[1]
-    # cv2.circle(new,(w/2,w/2), w/2, (0,0,255), 2)
-    mat = np.zeros((h, int(3.14159265359 * w / 2), 3), np.uint8)
-    print int(3.14159265359 * w / 2)
+    # mat = np.zeros((5000, 5000, 3), np.uint8)
 
+    # print int(math.pi * (h / 2))
+
+    # new = im.copy()
     # #############################
     # Circumference points method
     #
@@ -99,19 +79,39 @@ def main():
     #
     # v2.0
     #
-    print 'shape ', mat.shape
-    print ' w ', w
-    for r in range(int(w / 2), 1, -1):
-        i = 0
-        # print 'r ', r
 
-        for thetar in range(int(r * 1.57079632679), -1, -1):
-            # print 'theta ',thetar, ' i ', (r+int(w/2)), ' j ',
-            # (int(3.14159265359*w/2)-r+i)
-            print ' i ', (w - (int(w / 2) - r) - 1), ' j ', (int(3.14159265359 * w / 4) + i - 1), ' val ', new[int((h / 2) + r * math.sin(90 - thetar / r))][int((w / 2) + r * math.cos(90 - thetar / r))]
-            mat[w - (int(w / 2) - r) - 1][int(3.14159265359 * w / 4) + i - 1] = new[int((h / 2) +
-                                                                                        r * math.sin(90 - thetar / r))][int((w / 2) + r * math.cos(90 - thetar / r))]
-            i += 1
+    # print 'shape ', mat.shape
+    # print ' w ', w, ' h', h
+    l = 4999
+    for t in range(136, 147):
+        im = cv2.imread('flat/frame' + str(t) + '.jpg')
+        print t
+        h = im.shape[0]
+        w = im.shape[1]
+
+        for r in range(int(h / 2), int(4 * h / 10), -1):
+            i = 0
+            # print 'r ', r
+
+            for thetar in range(int(r * math.pi / 2), -1, -1):
+                # print 'theta ',thetar, ' i ', (r+int(w/2)), ' j ',
+                # (int(3.14159265359*w/2)-r+i)
+                # print ' i ', (w - (int(w / 2) - r) - 1), ' j ', (int(3.14159265359 * w /
+                # 4) + i - 1), ' val ', new[int((h / 2) + r * math.sin(90 - thetar /
+                # r))][int((w / 2) + r * math.cos(90 - thetar / r))]
+
+                mat[l][int(3.14159265359 * w / 4) - i - 1] = im[int((h / 2) - r * math.sin(90 - thetar / r))][int((w / 2) - r * math.cos(90 - thetar / r))]
+
+                mat[l][int(3.14159265359 * w / 4) + i - 1] = im[int((h / 2) + r * math.sin(90 - thetar / r))][int((w / 2) + r * math.cos(90 - thetar / r))]
+
+                i += 1
+            l -= 1
+        # l += 1
+
+    # for r in range(int(h / 2), 1, -1):
+    #     i = 0
+    #     for thetar in range(0, int(2 * r * pi)):
+    #         mat[int(h / 2) - i][thetar]=
 
     #
     #
@@ -134,11 +134,14 @@ def main():
     # fo = open("foo.txt", "wb")
     # fo.write(str(t));
     # fo.close();
+
     cv2.namedWindow('image', cv2.WINDOW_NORMAL)
     cv2.resizeWindow('image', 600, 600)
     name = 'out/flat/mat_' + time.strftime('%Y%m%d_%H%M') + '.jpg'
-    # cv2.imwrite(name,mat)
+    cv2.imwrite(name, mat)
     cv2.imshow('image', mat)
+    # cv2.namedWindow('new')
+    # cv2.imshow('new', new)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 

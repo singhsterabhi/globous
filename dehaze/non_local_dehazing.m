@@ -61,16 +61,17 @@ n_points = 1000;
 fid = fopen(['TR',num2str(n_points),'.txt']);
 points = cell2mat(textscan(fid,'%f %f %f')) ;
 fclose(fid);
+% disp(dist_unit_radius)
 mdl = KDTreeSearcher(points);
 ind = knnsearch(mdl, dist_unit_radius);
-
+% disp(ind)
 
 %% Estimating Initial Transmission
 
 % Estimate radius as the maximal radius in each haze-line (Eq. (11))
 K = accumarray(ind,radius(:),[n_points,1],@max);
 radius_new = reshape( K(ind), h, w);
-    
+
 % Estimate transmission as radii ratio (Eq. (12))
 transmission_estimation = radius./radius_new;
 
@@ -84,7 +85,7 @@ transmission_estimation = min(max(transmission_estimation, trans_min),1);
 % Apply lower bound from the image (Eqs. (13-14))
 trans_lower_bound = 1 - min(bsxfun(@rdivide,img_hazy_corrected,reshape(air_light,1,1,3)) ,[],3);
 transmission_estimation = max(transmission_estimation, trans_lower_bound);
- 
+
 % Solve optimization problem (Eq. (15))
 % find bin counts for reliability - small bins (#pixels<50) do not comply with 
 % the model assumptions and should be disregarded

@@ -11,11 +11,12 @@ int main(int argc, char ** argv){
     VideoCapture cap("vid.MP4"); // open the default camera
     if(!cap.isOpened())  // check if we succeeded
         return -1;
-    
+
     // Mat edges;
     namedWindow("edges",CV_WINDOW_NORMAL);
     while(true){
         t++;
+	cout<<t<<endl;
         Mat frame;
         cap >> frame;
         // cout<<t<<" ";

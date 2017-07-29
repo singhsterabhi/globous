@@ -36,13 +36,10 @@ def atmospheric_light(image, dark_channel_value):
     return A
 
 
-if __name__ == '__main__':
-    import sys
-    func = sys.argv[1]
+def estairlight(src):
 
-    src = cv2.imread(func)
+    img = src.astype('float64') / 255
 
-    I = src.astype('float64') / 255
-
-    dark_channel_value = dark_channel(I, 15)
-    A = atmospheric_light(I, dark_channel_value)
+    dark_channel_value = dark_channel(img, 15)
+    A = atmospheric_light(img, dark_channel_value)
+    return A
